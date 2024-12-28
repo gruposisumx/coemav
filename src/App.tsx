@@ -1,33 +1,34 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Navbar } from './components/layout/Navbar';
-import { Carousel } from './components/home/Carousel';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Header } from './components/layout/Header';
+import { Footer } from './components/layout/Footer';
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { BlogPage } from './pages/Blog/BlogPage';
+import { ResourcesPage } from './pages/Resources/ResourcesPage';
+import { StaffDashboard } from './pages/Staff/StaffDashboard';
+import { ProfessionalsPage } from './pages/Professionals/ProfessionalsPage';
 import { AuthProvider } from './contexts/AuthContext';
-import './styles/globals.css';
 
-function App() {
+export function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <div className="min-h-screen bg-gray-50">
-          <Navbar />
-          <main className="pt-16">
-            <section id="welcome" className="py-12 px-4">
-              <div className="max-w-7xl mx-auto">
-                <h1 className="text-4xl font-bold text-center mb-4">
-                  Bienvenida a COEMAV
-                </h1>
-                <p className="text-center text-gray-600 mb-8">
-                  Un espacio seguro para mujeres que buscan apoyo y sanación.
-                </p>
-                <Carousel />
-              </div>
-            </section>
-            {/* Otros componentes se agregarán aquí */}
+    <AuthProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/recursos" element={<ResourcesPage />} />
+              <Route path="/staff" element={<StaffDashboard />} />
+              <Route path="/profesionales" element={<ProfessionalsPage />} />
+            </Routes>
           </main>
+          <Footer />
         </div>
-      </AuthProvider>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
-
-export default App;
